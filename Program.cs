@@ -59,24 +59,29 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
-                name: "AsistententeOperaciones",
-                pattern: "AsistenteOperaciones",
-                defaults: new { controller = "AsistenteOperaciones", action = "AsistentedeOperaciones" });
-    endpoints.MapControllerRoute(
-            name: "Recepcionista",
-            pattern: "Recepcionista",
-            defaults: new { controller = "Recepcionista", action = "Recepcionista" });
-    endpoints.MapControllerRoute(
-        name: "admin",
-        pattern: "admin",
-        defaults: new { controller = "Admin", action = "Administrador" });
-    endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Inicio}/{action=IniciarSesion}/{id?}");
-        endpoints.MapControllerRoute(
-            name: "Empresas",
-            pattern: "{controller=Empresas}/{action=GestionarEmpresas}/{id?}");
-    });
+
+    endpoints.MapControllerRoute(
+     name: "admin",
+     pattern: "admin",
+     defaults: new { controller = "Admin", action = "Administrador" });
+
+    endpoints.MapControllerRoute(
+    name: "Recepcionista",
+    pattern: "Recepcionista",
+    defaults: new { controller = "Recepcionista", action = "Recepcionista" });
+
+
+    endpoints.MapControllerRoute(
+        name: "AsistententeOperaciones",
+        pattern: "AsistenteOperaciones",
+        defaults: new { controller = "AsistenteOperaciones", action = "AsistentedeOperaciones" });
+
+    endpoints.MapControllerRoute(
+        name: "Empresas",
+        pattern: "{controller=Empresas}/{action=GestionarEmpresas}/{id?}");
+});
 
 
 
