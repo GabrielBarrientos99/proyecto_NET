@@ -13,7 +13,11 @@ public partial class TipoInspeccion
 
     public string? Descripcion { get; set; }
 
+    public virtual ICollection<CertificadoresDisponible> CertificadoresDisponibles { get; set; } = new List<CertificadoresDisponible>();
+
     public virtual TipoCertificadoDePersonal? FkTipoCertificadoDePersonalNavigation { get; set; }
 
     public virtual ICollection<Inspeccione> Inspecciones { get; set; } = new List<Inspeccione>();
+
+    public virtual ICollection<InspectoresDisponible> InspectoresDisponibles { get; set; } = new List<InspectoresDisponible>();
 }

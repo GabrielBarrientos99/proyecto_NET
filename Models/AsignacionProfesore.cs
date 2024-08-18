@@ -9,9 +9,9 @@ public partial class AsignacionProfesore
 
     public int? FkServicio { get; set; }
 
-    public int? FkUsuario { get; set; }
+    public int? FkPersonal { get; set; }
+
+    public virtual Personal? FkPersonalNavigation { get; set; }
 
     public virtual Servicio? FkServicioNavigation { get; set; }
-
-    public virtual Usuario? FkUsuarioNavigation { get; set; }
 }
