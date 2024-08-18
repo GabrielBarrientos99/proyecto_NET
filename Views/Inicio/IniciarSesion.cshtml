@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Iniciar Sesión</h2>
+        <form asp-controller="Inicio" asp-action="IniciarSesion" method="post">
+            <div class="mb-4">
+                <label for="nombre_usuario" class="block text-gray-700 font-semibold mb-2">Nombre de Usuario</label>
+                <input type="text" id="nombre_usuario" name="nombre_usuario" required placeholder="nombre_usuario" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div class="mb-6">
+                <label for="contraseña" class="block text-gray-700 font-semibold mb-2">Contraseña</label>
+                <input type="password" id="contraseña" name="contraseña" required placeholder="contraseña" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300">Iniciar Sesión</button>
+        </form>
+        <p class="mt-4 text-center text-gray-600 text-sm">¿Olvidaste tu contraseña? <a href="#" class="text-blue-600 hover:underline">Recuperar</a></p>
+    </div>
+</body>
+</html>

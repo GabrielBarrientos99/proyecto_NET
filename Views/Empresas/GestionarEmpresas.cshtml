@@ -1,0 +1,80 @@
+﻿@model IEnumerable<PROYECTO_FLK.Models.Empresa>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Sidebar -->
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <div class="w-64 px-4 py-8 bg-gray-900 text-white">
+            <div class="flex items-center mb-8">
+                <!-- Logo -->
+                @* <img src="#" alt="Logo" class="h-12 w-auto"> *@
+                <span class="ml-3 text-2xl font-bold">Administrador</span>
+            </div>
+            <nav class="mt-8">
+                <a asp-controller="Admin" asp-action="Administrador" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Menu Principal</a>
+                
+                <a asp-controller="Empresas" asp-action="GestionarEmpresas" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Empresa</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Vehículos</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Agendar Cita</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Certificados de Asistentes de Operaciones</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Inspecciones y Asignaturas</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Servicios Agendados</a>
+                <a asp-controller="Inicio" asp-action="IniciarSesion" class="block py-2.5 px-4 mt-4 bg-red-600 rounded transition duration-200 hover:bg-red-700 text-white">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 p-10">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Gestionar Empresas</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="py-3 px-4 text-left">RUC</th>
+                            <th class="py-3 px-4 text-left">Nombre</th>
+                            <th class="py-3 px-4 text-left">Razón Social</th>
+                            <th class="py-3 px-4 text-left">Email</th>
+                            <th class="py-3 px-4 text-left">Dirección</th>
+                            <th class="py-3 px-4 text-left">Teléfono</th>
+                            <th class="py-3 px-4 text-left">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var empresa in Model)
+                        {
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-4">@empresa.Ruc</td>
+                                <td class="py-3 px-4">@empresa.Nombre</td>
+                                <td class="py-3 px-4">@empresa.RazonSocial</td>
+                                <td class="py-3 px-4">@empresa.Email</td>
+                                <td class="py-3 px-4">@empresa.Direccion</td>
+                                <td class="py-3 px-4">@empresa.Telefono</td>
+                                <td class="py-3 px-4 space-x-2">
+                                    <!-- Botones para editar o eliminar -->
+                                    <a href="@Url.Action("Editar", "Empresas", new { id = empresa.Ruc })" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-sm">Editar</a>
+                                    <a href="@Url.Action("Eliminar", "Empresas", new { id = empresa.Ruc })" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-sm">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "AsistentedeOperaciones";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente de Operaciones</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Sidebar -->
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <div class="w-64 px-4 py-8 bg-gray-900 text-white">
+            <div class="flex items-center mb-8">
+                <!-- Logo -->
+                @* <img src="#" alt="Logo" class="h-12 w-auto"> *@
+                <span class="ml-3 text-2xl font-bold">Asistente de Operaciones</span>
+            </div>
+            <nav class="mt-8">
+                <a asp-controller="AsistenteOperaciones" asp-action="AsistentedeOperaciones" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Menu Principal</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestión de Inspecciones</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Programación de Servicios</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Control de Documentos</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Reportes de Actividades</a>
+                <a asp-controller="Inicio" asp-action="IniciarSesion" class="block py-2.5 px-4 mt-4 bg-red-600 rounded transition duration-200 hover:bg-red-700 text-white">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 p-10 bg-gray-100 min-h-screen">
+            <div class="bg-white shadow-lg rounded-lg p-8">
+                <h1 class="text-4xl font-bold text-gray-800 mb-6">Panel de Control - Asistente de Operaciones</h1>
+                <p class="text-lg text-gray-600 mb-6">
+                    Bienvenido al Panel de Control del Asistente de Operaciones. Aquí podrás gestionar y supervisar todas las actividades relacionadas con la operativa diaria, incluyendo la programación de servicios, control de inspecciones y generación de reportes. Este panel está diseñado para optimizar la eficiencia en la gestión operativa y asegurar que todas las tareas se realicen de manera organizada.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Tarjetas de resumen -->
+                    <div class="bg-blue-600 text-white rounded-lg p-5 shadow-md">
+                        <h3 class="text-2xl font-bold mb-2">Inspecciones</h3>
+                        <p class="text-sm">Gestiona y supervisa las inspecciones programadas y en curso.</p>
+                    </div>
+                    <div class="bg-green-600 text-white rounded-lg p-5 shadow-md">
+                        <h3 class="text-2xl font-bold mb-2">Programación</h3>
+                        <p class="text-sm">Organiza y administra los servicios programados para optimizar el flujo de trabajo.</p>
+                    </div>
+                    <div class="bg-yellow-600 text-white rounded-lg p-5 shadow-md">
+                        <h3 class="text-2xl font-bold mb-2">Documentación</h3>
+                        <p class="text-sm">Controla y actualiza todos los documentos operativos necesarios.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+

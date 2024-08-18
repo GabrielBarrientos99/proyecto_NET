@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "Recepcionista";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepcionista</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Sidebar -->
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <div class="w-64 px-4 py-8 bg-gray-900 text-white">
+            <div class="flex items-center mb-8">
+                <!-- Logo -->
+                @* <img src="#" alt="Logo" class="h-12 w-auto"> *@
+                <span class="ml-3 text-2xl font-bold">Recepcionista</span>
+            </div>
+            <nav class="mt-8">
+                <a asp-controller="Recepcionista" asp-action="Recepcionista" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Menu Principal</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Citas</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Registro de Visitas</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Atención al Cliente</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Reportes de Actividades</a>
+                <a asp-controller="Inicio" asp-action="IniciarSesion" class="block py-2.5 px-4 mt-4 bg-red-600 rounded transition duration-200 hover:bg-red-700 text-white">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 p-10 bg-gray-100 min-h-screen">
+            <div class="bg-white shadow-lg rounded-lg p-8">
+                <h1 class="text-4xl font-bold text-gray-800 mb-6">Panel de Control - Recepcionista</h1>
+                <p class="text-lg text-gray-600 mb-6">
+                    Bienvenido al Panel de Control de Recepcionista. Desde esta interfaz, puedes gestionar las citas de clientes, realizar registros de visitas, ofrecer atención al cliente y generar reportes de las actividades diarias. Esta herramienta está diseñada para facilitar la gestión eficiente y brindar un servicio de calidad en la recepción.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Tarjetas de resumen -->
+                    <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg p-5 shadow-md">
+                        <h3 class="text-2xl font-bold mb-2">Citas</h3>
+                        <p class="text-sm">Gestiona las citas de los clientes de manera rápida y organizada.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg p-5 shadow-md">
+                        <h3 class="text-2xl font-bold mb-2">Visitas</h3>
+                        <p class="text-sm">Registra y supervisa todas las visitas al establecimiento.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-lg p-5 shadow-md">
+                        <h3 class="text-2xl font-bold mb-2">Atención al Cliente</h3>
+                        <p class="text-sm">Brinda soporte y resuelve dudas de los clientes de forma eficiente.</p>
+                    </div>
+                    <!-- Agregar más tarjetas según las funcionalidades del panel -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
