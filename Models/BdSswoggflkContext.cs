@@ -15,15 +15,19 @@ public partial class BdSswoggflkContext : DbContext
     {
     }
 
-    public virtual DbSet<AsignacionInspectore> AsignacionInspectores { get; set; }
+    public virtual DbSet<AsignacionInspectoress> AsignacionInspectoresses { get; set; }
 
     public virtual DbSet<AsignacionProfesore> AsignacionProfesores { get; set; }
+
+    public virtual DbSet<Asignatura> Asignaturas { get; set; }
 
     public virtual DbSet<CertificadoCurso> CertificadoCursos { get; set; }
 
     public virtual DbSet<CertificadoInspeccion> CertificadoInspeccions { get; set; }
 
     public virtual DbSet<CertificadorAsignado> CertificadorAsignados { get; set; }
+
+    public virtual DbSet<CertificadoresDisponible> CertificadoresDisponibles { get; set; }
 
     public virtual DbSet<CertificadosDePersonal> CertificadosDePersonals { get; set; }
 
@@ -32,6 +36,8 @@ public partial class BdSswoggflkContext : DbContext
     public virtual DbSet<Empresa> Empresas { get; set; }
 
     public virtual DbSet<Inspeccione> Inspecciones { get; set; }
+
+    public virtual DbSet<InspectoresDisponible> InspectoresDisponibles { get; set; }
 
     public virtual DbSet<ParticipantesCurso> ParticipantesCursos { get; set; }
 
@@ -45,6 +51,8 @@ public partial class BdSswoggflkContext : DbContext
 
     public virtual DbSet<TipoCertificadoDePersonal> TipoCertificadoDePersonals { get; set; }
 
+    public virtual DbSet<TipoDeVehiculo> TipoDeVehiculos { get; set; }
+
     public virtual DbSet<TipoDocumentoIdentidad> TipoDocumentoIdentidads { get; set; }
 
     public virtual DbSet<TipoInspeccion> TipoInspeccions { get; set; }
@@ -53,49 +61,61 @@ public partial class BdSswoggflkContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-
+    public virtual DbSet<Vehiculo> Vehiculos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    { }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-JV065NN\\SQLEXPRESS;Database=BD_SSWOGGFLK;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AsignacionInspectore>(entity =>
+        modelBuilder.Entity<AsignacionInspectoress>(entity =>
         {
-            entity.HasKey(e => e.PkAsignacionId).HasName("PK__Asignaci__05D5AD78D2B5D053");
+            entity.HasKey(e => e.PkAsignacionId).HasName("PK__Asignaci__05D5AD78E72A3BBC");
 
-            entity.Property(e => e.PkAsignacionId)
-                .ValueGeneratedNever()
-                .HasColumnName("PK_AsignacionID");
-            entity.Property(e => e.FkServicio).HasColumnName("FK_Servicio");
-            entity.Property(e => e.FkUsuario).HasColumnName("FK_Usuario");
+            entity.ToTable("AsignacionInspectoress");
 
-            entity.HasOne(d => d.FkServicioNavigation).WithMany(p => p.AsignacionInspectores)
-                .HasForeignKey(d => d.FkServicio)
-                .HasConstraintName("FK__Asignacio__FK_Se__1F98B2C1");
+            entity.Property(e => e.PkAsignacionId).HasColumnName("PK_AsignacionID");
+            entity.Property(e => e.FkInspectoresDisponibles).HasColumnName("FK_InspectoresDisponibles");
 
-            entity.HasOne(d => d.FkUsuarioNavigation).WithMany(p => p.AsignacionInspectores)
-                .HasForeignKey(d => d.FkUsuario)
-                .HasConstraintName("FK__Asignacio__FK_Us__208CD6FA");
+            entity.HasOne(d => d.FkInspectoresDisponiblesNavigation).WithMany(p => p.AsignacionInspectoresses)
+                .HasForeignKey(d => d.FkInspectoresDisponibles)
+                .HasConstraintName("FK_AsignacionInspectores_InspectoresDisponibles");
         });
 
         modelBuilder.Entity<AsignacionProfesore>(entity =>
         {
-            entity.HasKey(e => e.PkAsignacionProfesores).HasName("PK__Asignaci__EFEED662F959EFD0");
+            entity.HasKey(e => e.PkAsignacionProfesores).HasName("PK__Asignaci__EFEED6625CF03CDE");
 
             entity.Property(e => e.PkAsignacionProfesores)
                 .ValueGeneratedNever()
                 .HasColumnName("PK_AsignacionProfesores");
+            entity.Property(e => e.FkPersonal).HasColumnName("FK_Personal");
             entity.Property(e => e.FkServicio).HasColumnName("FK_Servicio");
-            entity.Property(e => e.FkUsuario).HasColumnName("FK_Usuario");
+
+            entity.HasOne(d => d.FkPersonalNavigation).WithMany(p => p.AsignacionProfesores)
+                .HasForeignKey(d => d.FkPersonal)
+                .HasConstraintName("FK__Asignacio__FK_Pe__3E1D39E1");
 
             entity.HasOne(d => d.FkServicioNavigation).WithMany(p => p.AsignacionProfesores)
                 .HasForeignKey(d => d.FkServicio)
-                .HasConstraintName("FK__Asignacio__FK_Se__236943A5");
+                .HasConstraintName("FK__Asignacio__FK_Se__3D2915A8");
+        });
 
-            entity.HasOne(d => d.FkUsuarioNavigation).WithMany(p => p.AsignacionProfesores)
-                .HasForeignKey(d => d.FkUsuario)
-                .HasConstraintName("FK__Asignacio__FK_Us__245D67DE");
+        modelBuilder.Entity<Asignatura>(entity =>
+        {
+            entity.HasKey(e => e.PkAsignatura).HasName("PK__Asignatu__41C0F21545DF7D86");
+
+            entity.ToTable("Asignatura");
+
+            entity.Property(e => e.PkAsignatura).HasColumnName("PK_Asignatura");
+            entity.Property(e => e.HoraPractica)
+                .HasMaxLength(20)
+                .HasColumnName("Hora_Practica");
+            entity.Property(e => e.HorasTeoria)
+                .HasMaxLength(20)
+                .HasColumnName("Horas_Teoria");
+            entity.Property(e => e.Nombre).HasMaxLength(20);
         });
 
         modelBuilder.Entity<CertificadoCurso>(entity =>
@@ -149,6 +169,25 @@ public partial class BdSswoggflkContext : DbContext
             entity.HasOne(d => d.FkUsuarioNavigation).WithMany(p => p.CertificadorAsignados)
                 .HasForeignKey(d => d.FkUsuario)
                 .HasConstraintName("FK__Certifica__FK_Us__71D1E811");
+        });
+
+        modelBuilder.Entity<CertificadoresDisponible>(entity =>
+        {
+            entity.HasKey(e => e.PkCertificadoresDisponibles).HasName("PK__Certific__05FE5811D1BA45BA");
+
+            entity.Property(e => e.PkCertificadoresDisponibles).HasColumnName("PK_CertificadoresDisponibles");
+            entity.Property(e => e.CertificadoPdf).HasColumnName("CertificadoPDF");
+            entity.Property(e => e.FirmaYselloDigital).HasColumnName("FirmaYSelloDigital");
+            entity.Property(e => e.FkTipoInspeccion).HasColumnName("FK_Tipo_Inspeccion");
+            entity.Property(e => e.FkUsuario).HasColumnName("FK_Usuario");
+
+            entity.HasOne(d => d.FkTipoInspeccionNavigation).WithMany(p => p.CertificadoresDisponibles)
+                .HasForeignKey(d => d.FkTipoInspeccion)
+                .HasConstraintName("FK_CertificadoresDisponibles_TipoInspeccion");
+
+            entity.HasOne(d => d.FkUsuarioNavigation).WithMany(p => p.CertificadoresDisponibles)
+                .HasForeignKey(d => d.FkUsuario)
+                .HasConstraintName("FK_CertificadoresDisponibles_Usuario");
         });
 
         modelBuilder.Entity<CertificadosDePersonal>(entity =>
@@ -229,6 +268,25 @@ public partial class BdSswoggflkContext : DbContext
                 .HasConstraintName("FK__Inspeccio__FK_Ti__17F790F9");
         });
 
+        modelBuilder.Entity<InspectoresDisponible>(entity =>
+        {
+            entity.HasKey(e => e.PkInspectoresDisponibles).HasName("PK__Inspecto__CA7A3A1B14A0EED9");
+
+            entity.Property(e => e.PkInspectoresDisponibles).HasColumnName("PK_InspectoresDisponibles");
+            entity.Property(e => e.CertificadoPdf).HasColumnName("CertificadoPDF");
+            entity.Property(e => e.FirmaYselloDigital).HasColumnName("FirmaYSelloDigital");
+            entity.Property(e => e.FkTipoInspeccion).HasColumnName("FK_Tipo_Inspeccion");
+            entity.Property(e => e.FkUsuario).HasColumnName("FK_Usuario");
+
+            entity.HasOne(d => d.FkTipoInspeccionNavigation).WithMany(p => p.InspectoresDisponibles)
+                .HasForeignKey(d => d.FkTipoInspeccion)
+                .HasConstraintName("FK_InspectoresDisponibles_TipoInspeccion");
+
+            entity.HasOne(d => d.FkUsuarioNavigation).WithMany(p => p.InspectoresDisponibles)
+                .HasForeignKey(d => d.FkUsuario)
+                .HasConstraintName("FK_InspectoresDisponibles_Usuario");
+        });
+
         modelBuilder.Entity<ParticipantesCurso>(entity =>
         {
             entity.HasKey(e => e.PkParticipantesCursos).HasName("PK__Particip__D770F8AF797D881A");
@@ -270,7 +328,7 @@ public partial class BdSswoggflkContext : DbContext
 
         modelBuilder.Entity<Personal>(entity =>
         {
-            entity.HasKey(e => e.PkPersonal).HasName("PK__Personal__1EA7C9C76DC56DCC");
+            entity.HasKey(e => e.PkPersonal).HasName("PK__Personal__1EA7C9C7318B23D2");
 
             entity.ToTable("Personal");
 
@@ -282,13 +340,13 @@ public partial class BdSswoggflkContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("DNI");
             entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.FkUsuario).HasColumnName("FK_Usuario");
             entity.Property(e => e.Nombre).HasMaxLength(100);
-            entity.Property(e => e.PkUsuario).HasColumnName("PK_Usuario");
             entity.Property(e => e.Telefono).HasMaxLength(20);
 
-            entity.HasOne(d => d.PkUsuarioNavigation).WithMany(p => p.Personals)
-                .HasForeignKey(d => d.PkUsuario)
-                .HasConstraintName("FK__Personal__PK_Usu__5BE2A6F2");
+            entity.HasOne(d => d.FkUsuarioNavigation).WithMany(p => p.Personals)
+                .HasForeignKey(d => d.FkUsuario)
+                .HasConstraintName("FK__Personal__Telefo__367C1819");
         });
 
         modelBuilder.Entity<Rol>(entity =>
@@ -329,6 +387,24 @@ public partial class BdSswoggflkContext : DbContext
                 .HasColumnName("PK_Tipo_Certificado_de_Personal");
             entity.Property(e => e.Descripcion).HasMaxLength(200);
             entity.Property(e => e.Titulo).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TipoDeVehiculo>(entity =>
+        {
+            entity.HasKey(e => e.PkTipoDeVehiculos).HasName("PK__Tipo_de___436ED725F7D77BB8");
+
+            entity.ToTable("Tipo_de_Vehiculos");
+
+            entity.Property(e => e.PkTipoDeVehiculos).HasColumnName("PK_tipo_de_vehiculos");
+            entity.Property(e => e.CapacidadCarga).HasColumnName("capacidad_carga");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("descripcion");
+            entity.Property(e => e.TipoDeVehiculo1)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("Tipo_de_Vehiculo");
         });
 
         modelBuilder.Entity<TipoDocumentoIdentidad>(entity =>
@@ -392,6 +468,36 @@ public partial class BdSswoggflkContext : DbContext
             entity.HasOne(d => d.FkRolNavigation).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.FkRol)
                 .HasConstraintName("FK__Usuario__FK_Rol__59063A47");
+        });
+
+        modelBuilder.Entity<Vehiculo>(entity =>
+        {
+            entity.HasKey(e => e.PkVehiculo).HasName("PK__Vehiculo__0032D334AA00781C");
+
+            entity.Property(e => e.PkVehiculo).HasColumnName("PK_Vehiculo");
+            entity.Property(e => e.Fabricante)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.FkEmpresas).HasColumnName("FK_Empresas");
+            entity.Property(e => e.FkTipoDeVehiculos).HasColumnName("FK_tipo_de_vehiculos");
+            entity.Property(e => e.Marca)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.Modelo)
+                .HasMaxLength(200)
+                .IsUnicode(false);
+            entity.Property(e => e.NumeroSerie)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("Numero_Serie");
+
+            entity.HasOne(d => d.FkEmpresasNavigation).WithMany(p => p.Vehiculos)
+                .HasForeignKey(d => d.FkEmpresas)
+                .HasConstraintName("FK_Vehiculos_Empresas");
+
+            entity.HasOne(d => d.FkTipoDeVehiculosNavigation).WithMany(p => p.Vehiculos)
+                .HasForeignKey(d => d.FkTipoDeVehiculos)
+                .HasConstraintName("FK_Vehiculos_TipoDeVehiculos");
         });
 
         OnModelCreatingPartial(modelBuilder);

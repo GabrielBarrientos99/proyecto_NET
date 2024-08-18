@@ -20,4 +20,6 @@ public partial class Empresa
     public string? Telefono { get; set; }
 
     public virtual ICollection<Inspeccione> Inspecciones { get; set; } = new List<Inspeccione>();
+
+    public virtual ICollection<Vehiculo> Vehiculos { get; set; } = new List<Vehiculo>();
 }

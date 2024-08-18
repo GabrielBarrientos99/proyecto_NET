@@ -1,0 +1,48 @@
+﻿@model PROYECTO_FLK.Models.Empresa
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Empresa</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-lg mx-auto mt-10 bg-white p-6 rounded shadow-lg">
+        <h2 class="text-2xl font-bold mb-4">Editar Empresa</h2>
+
+        <form asp-action="Editar" method="post">
+            <div class="mb-4">
+                <label asp-for="Ruc" class="block text-gray-700">RUC</label>
+                <input asp-for="Ruc" class="w-full p-2 border border-gray-300 rounded" readonly />
+            </div>
+            <div class="mb-4">
+                <label asp-for="Nombre" class="block text-gray-700">Nombre</label>
+                <input asp-for="Nombre" class="w-full p-2 border border-gray-300 rounded" />
+            </div>
+            <div class="mb-4">
+                <label asp-for="RazonSocial" class="block text-gray-700">Razón Social</label>
+                <input asp-for="RazonSocial" class="w-full p-2 border border-gray-300 rounded" />
+            </div>
+            <div class="mb-4">
+                <label asp-for="Email" class="block text-gray-700">Email</label>
+                <input asp-for="Email" class="w-full p-2 border border-gray-300 rounded" />
+            </div>
+            <div class="mb-4">
+                <label asp-for="Direccion" class="block text-gray-700">Dirección</label>
+                <input asp-for="Direccion" class="w-full p-2 border border-gray-300 rounded" />
+            </div>
+            <div class="mb-4">
+                <label asp-for="Telefono" class="block text-gray-700">Teléfono</label>
+                <input asp-for="Telefono" class="w-full p-2 border border-gray-300 rounded" />
+            </div>
+
+            <div class="flex justify-end">
+                <a href="@Url.Action("GestionarEmpresas", "Empresas")" class="bg-gray-500 text-white font-bold py-2 px-4 rounded mr-2">Cancelar</a>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

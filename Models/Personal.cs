@@ -7,7 +7,7 @@ public partial class Personal
 {
     public int PkPersonal { get; set; }
 
-    public int? PkUsuario { get; set; }
+    public int? FkUsuario { get; set; }
 
     public string? Nombre { get; set; }
 
@@ -19,5 +19,7 @@ public partial class Personal
 
     public string? Telefono { get; set; }
 
-    public virtual Usuario? PkUsuarioNavigation { get; set; }
+    public virtual ICollection<AsignacionProfesore> AsignacionProfesores { get; set; } = new List<AsignacionProfesore>();
+
+    public virtual Usuario? FkUsuarioNavigation { get; set; }
 }

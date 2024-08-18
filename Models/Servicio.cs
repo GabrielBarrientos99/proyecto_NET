@@ -13,8 +13,6 @@ public partial class Servicio
 
     public string? Descripcion { get; set; }
 
-    public virtual ICollection<AsignacionInspectore> AsignacionInspectores { get; set; } = new List<AsignacionInspectore>();
-
     public virtual ICollection<AsignacionProfesore> AsignacionProfesores { get; set; } = new List<AsignacionProfesore>();
 
     public virtual ICollection<CertificadoCurso> CertificadoCursos { get; set; } = new List<CertificadoCurso>();
