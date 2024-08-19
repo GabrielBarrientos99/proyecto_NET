@@ -10,7 +10,7 @@ public partial class TipoInspeccion
     public int? FkTipoCertificadoDePersonal { get; set; }
 
     public string? Titulo { get; set; }
-
+   
     public string? Descripcion { get; set; }
 
     public virtual ICollection<CertificadoresDisponible> CertificadoresDisponibles { get; set; } = new List<CertificadoresDisponible>();

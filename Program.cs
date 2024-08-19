@@ -83,9 +83,8 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Empresas}/{action=GestionarEmpresas}/{id?}");
 
     endpoints.MapControllerRoute(
-    name: "inspecciones",
-    pattern: "inspecciones",
-    defaults: new { controller = "Inspecciones", action = "GestionarInspeccionesYAsignaturas" });
+        name: "GestionarInspeccionesAsignaturas",
+        pattern: "{controller=Inspecciones}/{action=InspeccionesAsignaturas}/{id?}");
 });
 
 

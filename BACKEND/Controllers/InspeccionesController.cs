@@ -16,9 +16,12 @@ namespace PROYECTO_FLK.Controllers
             _context = context;
         }
 
-        // Acción para mostrar la vista de inspecciones y asignaturas
-        public async Task<IActionResult> GestionarInspeccionesYAsignaturas(string searchInspeccion, string searchAsignatura)
+        public async Task<IActionResult> InspeccionesAsignaturas(string searchInspeccion, string searchAsignatura)
         {
+            // Guardar los parámetros de búsqueda en ViewData para usarlos en la vista
+            ViewData["searchInspeccion"] = searchInspeccion;
+            ViewData["searchAsignatura"] = searchAsignatura;
+
             // Filtrado de inspecciones
             var inspecciones = from i in _context.Inspecciones.Include(i => i.FkTipoInspeccionesNavigation)
                                select i;
@@ -37,7 +40,7 @@ namespace PROYECTO_FLK.Controllers
                 asignaturas = asignaturas.Where(a => a.Nombre.Contains(searchAsignatura));
             }
 
-            // Creación del ViewModel para pasar ambos conjuntos de datos a la vista
+            // Crear el ViewModel con los datos filtrados
             var viewModel = new InspeccionesViewModel
             {
                 Inspecciones = await inspecciones.ToListAsync(),
@@ -46,14 +49,5 @@ namespace PROYECTO_FLK.Controllers
 
             return View(viewModel);
         }
-
-        // Aquí podrías añadir otras acciones como Crear, Editar, Eliminar para inspecciones y asignaturas.
-    }
-
-    // ViewModel que agrupa los datos de inspecciones y asignaturas
-    public class InspeccionesViewModel
-    {
-        public List<Inspeccione> Inspecciones { get; set; } = new List<Inspeccione>();
-        public List<Asignatura> Asignaturas { get; set; } = new List<Asignatura>();
     }
 }

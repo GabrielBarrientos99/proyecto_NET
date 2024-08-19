@@ -21,7 +21,7 @@ namespace PROYECTO_FLK.BACKEND.Controllers
         // GET: Personals
         public async Task<IActionResult> Index()
         {
-            var bdSswoggflkContext = _context.Personals.Include(p => p.PkUsuarioNavigation);
+            var bdSswoggflkContext = _context.Personals.Include(p => p.FkUsuarioNavigation);
             return View(await bdSswoggflkContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace PROYECTO_FLK.BACKEND.Controllers
             }
 
             var personal = await _context.Personals
-                .Include(p => p.PkUsuarioNavigation)
+                .Include(p => p.FkUsuarioNavigation)
                 .FirstOrDefaultAsync(m => m.PkPersonal == id);
             if (personal == null)
             {
@@ -64,7 +64,7 @@ namespace PROYECTO_FLK.BACKEND.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PkUsuario"] = new SelectList(_context.Usuarios, "PkUsuario", "PkUsuario", personal.PkUsuario);
+            ViewData["PkUsuario"] = new SelectList(_context.Usuarios, "PkUsuario", "PkUsuario", personal.FkUsuario);
             return View(personal);
         }
 
@@ -82,7 +82,7 @@ namespace PROYECTO_FLK.BACKEND.Controllers
             {
                 return NotFound();
             }
-            ViewData["PkUsuario"] = new SelectList(_context.Usuarios, "PkUsuario", "PkUsuario", personal.PkUsuario);
+            ViewData["PkUsuario"] = new SelectList(_context.Usuarios, "PkUsuario", "PkUsuario", personal.FkUsuario);
             return View(personal);
         }
 
@@ -118,7 +118,7 @@ namespace PROYECTO_FLK.BACKEND.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PkUsuario"] = new SelectList(_context.Usuarios, "PkUsuario", "PkUsuario", personal.PkUsuario);
+            ViewData["PkUsuario"] = new SelectList(_context.Usuarios, "PkUsuario", "PkUsuario", personal.FkUsuario);
             return View(personal);
         }
 
@@ -131,7 +131,7 @@ namespace PROYECTO_FLK.BACKEND.Controllers
             }
 
             var personal = await _context.Personals
-                .Include(p => p.PkUsuarioNavigation)
+                .Include(p => p.FkUsuarioNavigation)
                 .FirstOrDefaultAsync(m => m.PkPersonal == id);
             if (personal == null)
             {
