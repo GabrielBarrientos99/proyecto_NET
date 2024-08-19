@@ -24,13 +24,10 @@
             </div>
             <nav class="mt-8">
                 <a asp-controller="Admin" asp-action="Administrador" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Menu Principal</a>
-                
                 <a asp-controller="Empresas" asp-action="GestionarEmpresas" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Empresa</a>
                 <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Vehículos</a>
                 <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Agendar Cita</a>
-                
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Inspecciones y Asignaturas</a>
-                
+                <a asp-controller="Inspecciones" asp-action="GestionarInspeccionesYAsignaturas" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white bg-gray-800 text-white">Gestionar Inspecciones y Asignaturas</a>
                 <a asp-controller="Inicio" asp-action="IniciarSesion" class="block py-2.5 px-4 mt-4 bg-red-600 rounded transition duration-200 hover:bg-red-700 text-white">Logout</a>
             </nav>
         </div>

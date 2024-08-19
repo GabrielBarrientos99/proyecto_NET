@@ -1,0 +1,129 @@
+﻿@model PROYECTO_FLK.Models.InspeccionesViewModel
+
+@{
+    ViewData["Title"] = "Gestionar Inspecciones y Asignaturas";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Contenedor Principal -->
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <div class="w-64 px-4 py-8 bg-gray-900 text-white">
+            <div class="flex items-center mb-8">
+                <!-- Logo -->
+                @* <img src="#" alt="Logo" class="h-12 w-auto"> *@
+                <span class="ml-3 text-2xl font-bold">Administrador</span>
+            </div>
+            <nav class="mt-8">
+                <a asp-controller="Admin" asp-action="Administrador" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Menu Principal</a>
+                <a asp-controller="Empresas" asp-action="GestionarEmpresas" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Empresa</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Vehículos</a>
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Agendar Cita</a>
+                <a asp-controller="Inspecciones" asp-action="InspeccionesAsignaturas" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white bg-gray-800 text-white">Gestionar Inspecciones y Asignaturas</a>
+                <a asp-controller="Inicio" asp-action="IniciarSesion" class="block py-2.5 px-4 mt-4 bg-red-600 rounded transition duration-200 hover:bg-red-700 text-white">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Contenido Principal -->
+        <div class="flex-1 p-10 bg-gray-100 min-h-screen">
+            <div class="bg-white shadow-lg rounded-lg p-8">
+                <h1 class="text-4xl font-bold text-gray-800 mb-6">Gestionar Inspecciones y Asignaturas</h1>
+
+                <!-- Sección de Inspecciones -->
+                <h2 class="text-2xl font-bold mb-4">Tipos de Inspección</h2>
+                <form method="get" class="mb-4">
+                    <input type="text" name="searchInspeccion" class="border p-2 rounded" placeholder="Filtrar por Título" value="@ViewData["searchInspeccion"]" />
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Buscar</button>
+                </form>
+                <table class="min-w-full bg-white border border-gray-300 mb-8">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 bg-gray-200 border-b">Título</th>
+                            <th class="py-2 px-4 bg-gray-200 border-b">Descripción</th>
+                            <th class="py-2 px-4 bg-gray-200 border-b">Empresa Asociada</th>
+                            <th class="py-2 px-4 bg-gray-200 border-b">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Inspecciones != null && Model.Inspecciones.Any())
+                        {
+                            @foreach (var inspeccion in Model.Inspecciones)
+                            {
+                                <tr>
+                                    <td class="py-2 px-4 border-b">@inspeccion.FkTipoInspeccionesNavigation.Titulo</td>
+                                    <td class="py-2 px-4 border-b">@inspeccion.Descripcion</td>
+                                    <td class="py-2 px-4 border-b">@inspeccion.FkEmpresas.Value</td>
+                                    <td class="py-2 px-4 border-b">
+                                        <a asp-action="Edit" asp-route-id="@inspeccion.PkInspeccion" class="text-blue-500">Editar</a> |
+                                        <a asp-action="Delete" asp-route-id="@inspeccion.PkInspeccion" class="text-red-500">Eliminar</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="py-2 px-4 border-b text-center" colspan="3">No se encontraron inspecciones.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- Sección de Asignaturas -->
+                <h2 class="text-2xl font-bold mb-4">Asignaturas</h2>
+                <form method="get" class="mb-4">
+                    <input type="text" name="searchAsignatura" class="border p-2 rounded" placeholder="Filtrar por Nombre" value="@ViewData["searchAsignatura"]" />
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Buscar</button>
+                </form>
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 bg-gray-200 border-b">Nombre</th>
+                            <th class="py-2 px-4 bg-gray-200 border-b">Horas Teoría</th>
+                            <th class="py-2 px-4 bg-gray-200 border-b">Horas Práctica</th>
+                            <th class="py-2 px-4 bg-gray-200 border-b">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Asignaturas != null && Model.Asignaturas.Any())
+                        {
+                            @foreach (var asignatura in Model.Asignaturas)
+                            {
+                                <tr>
+                                    <td class="py-2 px-4 border-b">@asignatura.Nombre</td>
+                                    <td class="py-2 px-4 border-b">@asignatura.HorasTeoria</td>
+                                    <td class="py-2 px-4 border-b">@asignatura.HoraPractica</td>
+                                    <td class="py-2 px-4 border-b">
+                                        <a asp-action="Edit" asp-route-id="@asignatura.PkAsignatura" class="text-blue-500">Editar</a> |
+                                        <a asp-action="Delete" asp-route-id="@asignatura.PkAsignatura" class="text-red-500">Eliminar</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="py-2 px-4 border-b text-center" colspan="4">No se encontraron asignaturas.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
