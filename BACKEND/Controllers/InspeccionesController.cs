@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PROYECTO_FLK.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace PROYECTO_FLK.Controllers
         }
 
         // Acción para mostrar la vista de inspecciones y asignaturas
-        public async Task<IActionResult> Index(string searchInspeccion, string searchAsignatura)
+        public async Task<IActionResult> GestionarInspeccionesYAsignaturas(string searchInspeccion, string searchAsignatura)
         {
             // Filtrado de inspecciones
             var inspecciones = from i in _context.Inspecciones.Include(i => i.FkTipoInspeccionesNavigation)
@@ -52,7 +53,7 @@ namespace PROYECTO_FLK.Controllers
     // ViewModel que agrupa los datos de inspecciones y asignaturas
     public class InspeccionesViewModel
     {
-        public List<Inspeccione> Inspecciones { get; set; }
-        public List<Asignatura> Asignaturas { get; set; }
+        public List<Inspeccione> Inspecciones { get; set; } = new List<Inspeccione>();
+        public List<Asignatura> Asignaturas { get; set; } = new List<Asignatura>();
     }
 }
