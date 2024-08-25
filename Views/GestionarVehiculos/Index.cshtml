@@ -27,11 +27,13 @@
                 <span class="ml-3 text-2xl font-bold">Administrador</span>
             </div>
             <nav class="mt-8">
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Menu Principal</a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Empresa</a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 bg-gray-800 text-white">Gestionar Vehículos</a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Agendar Cita</a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Inspecciones y Asignaturas</a>
+                <a asp-controller="Admin" asp-action="Administrador" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Menu Principal</a>
+
+                <a asp-controller="Empresas" asp-action="GestionarEmpresas" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Empresa</a>
+                <a asp-controller="GestionarVehiculos" asp-action="Index" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Vehículos</a>
+                <a asp-controller="AgendarCita" asp-action="Index" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Agendar Cita</a>
+
+                <a asp-controller="Inspecciones" asp-action="InspeccionesAsignaturas" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white bg-gray-800 text-white">Gestionar Inspecciones y Asignaturas</a>
                 <a asp-controller="Inicio" asp-action="IniciarSesion" class="block py-2.5 px-4 mt-4 bg-red-600 rounded transition duration-200 hover:bg-red-700 text-white">Logout</a>
             </nav>
         </div>
@@ -42,72 +44,91 @@
             <div>
                 <h2 class="text-2xl font-bold mb-6 text-gray-800">Lista de Vehículos</h2>
                 <a href="@Url.Action("AgregarVehiculo", "GestionarVehiculos")" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">AGREGAR VEHÍCULO</a>
-               
+
+                <!-- Tabla de vehículos -->
                 <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-                        <thead class="bg-gray-800 text-white">
-                            <tr>
-                                <th class="py-3 px-4 text-left">ID</th>
-                                <th class="py-3 px-4 text-left">Fabricante</th>
-                                <th class="py-3 px-4 text-left">Modelo</th>
-                                <th class="py-3 px-4 text-left">Número de Serie</th>
-                                <th class="py-3 px-4 text-left">Marca</th>
-                                <th class="py-3 px-4 text-left">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var vehiculo in Model.Vehiculos)
-                            {
-                                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                    <td class="py-3 px-4">@vehiculo.PkVehiculo</td>
-                                    <td class="py-3 px-4">@vehiculo.Fabricante</td>
-                                    <td class="py-3 px-4">@vehiculo.Modelo</td>
-                                    <td class="py-3 px-4">@vehiculo.NumeroSerie</td>
-                                    <td class="py-3 px-4">@vehiculo.Marca</td>
-                                    <td class="py-3 px-4 space-x-2">
-                                        <a href="@Url.Action("EditarVehiculos", "GestionarVehiculos", new { id = vehiculo.PkVehiculo })" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-sm">Editar</a>
-                                        <a href="@Url.Action("EliminarVehiculos", "GestionarVehiculos", new { id = vehiculo.PkVehiculo })" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-sm">Eliminar</a>
-                                    </td>
+                    @if (Model.Vehiculos?.Any() == true)
+                    {
+                        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+                            <thead class="bg-gray-800 text-white">
+                                <tr>
+                                    <th class="py-3 px-4 text-left">ID</th>
+                                    <th class="py-3 px-4 text-left">Fabricante</th>
+                                    <th class="py-3 px-4 text-left">Modelo</th>
+                                    <th class="py-3 px-4 text-left">Número de Serie</th>
+                                    <th class="py-3 px-4 text-left">Marca</th>
+                                    <th class="py-3 px-4 text-left">Acciones</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var vehiculo in Model.Vehiculos)
+                                {
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-4">@vehiculo.PkVehiculo</td>
+                                        <td class="py-3 px-4">@vehiculo.Fabricante</td>
+                                        <td class="py-3 px-4">@vehiculo.Modelo</td>
+                                        <td class="py-3 px-4">@vehiculo.NumeroSerie</td>
+                                        <td class="py-3 px-4">@vehiculo.Marca</td>
+                                        <td class="py-3 px-4 space-x-2">
+                                            <a href="@Url.Action("EditarVehiculos", "GestionarVehiculos", new { id = vehiculo.PkVehiculo })" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-sm">Editar</a>
+                                            <a href="@Url.Action("EliminarVehiculos", "GestionarVehiculos", new { id = vehiculo.PkVehiculo })" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-sm">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-gray-600">No hay vehículos registrados.</p>
+                    }
                 </div>
             </div>
+
             <!-- Sección de Gestión de Tipos de Vehículos -->
             <div>
                 <h2 class="text-2xl font-bold mb-6 text-gray-800">Lista de Tipos de Vehículos</h2>
                 <a href="@Url.Action("CrearTipoVehiculo", "GestionarVehiculos")" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">AGREGAR TIPO DE VEHÍCULO</a>
-     
+
+                <!-- Tabla de tipos de vehículos -->
                 <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-                        <thead class="bg-gray-800 text-white">
-                            <tr>
-                                <th class="py-3 px-4 text-left">ID</th>
-                                <th class="py-3 px-4 text-left">Tipo de Vehículo</th>
-                                <th class="py-3 px-4 text-left">Capacidad de Carga</th>
-                                <th class="py-3 px-4 text-left">Descripción</th>
-                                <th class="py-3 px-4 text-left">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var tipo in Model.TipoDeVehiculos)
-                            {
-                                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                    <td class="py-3 px-4">@tipo.PkTipoDeVehiculos</td>
-                                    <td class="py-3 px-4">@tipo.TipoDeVehiculo1</td> 
-                                    <td class="py-3 px-4">@tipo.CapacidadCarga</td> 
-                                    <td class="py-3 px-4">@tipo.Descripcion</td> 
-                                    <td class="py-3 px-4 space-x-2">
-                                        <a href="@Url.Action("EditarTipoVehiculo", "GestionarVehiculos", new { id = tipo.PkTipoDeVehiculos })" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-sm">Editar</a>
-                                        <a href="@Url.Action("EliminarTipoVehiculo", "GestionarVehiculos", new { id = tipo.PkTipoDeVehiculos })" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-sm">Eliminar</a>
-                                    </td>
+                    @if (Model.TipoDeVehiculos?.Any() == true)
+                    {
+                        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+                            <thead class="bg-gray-800 text-white">
+                                <tr>
+                                    <th class="py-3 px-4 text-left">ID</th>
+                                    <th class="py-3 px-4 text-left">Tipo de Vehículo</th>
+                                    <th class="py-3 px-4 text-left">Capacidad de Carga</th>
+                                    <th class="py-3 px-4 text-left">Descripción</th>
+                                    <th class="py-3 px-4 text-left">Acciones</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var tipo in Model.TipoDeVehiculos)
+                                {
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-4">@tipo.PkTipoDeVehiculos</td>
+                                        <td class="py-3 px-4">@tipo.TipoDeVehiculo1</td>
+                                        <td class="py-3 px-4">@tipo.CapacidadCarga</td>
+                                        <td class="py-3 px-4">@tipo.Descripcion</td>
+                                        <td class="py-3 px-4 space-x-2">
+                                            <a href="@Url.Action("EditarTipoVehiculo", "GestionarVehiculos", new { id = tipo.PkTipoDeVehiculos })" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-sm">Editar</a>
+                                            <a href="@Url.Action("EliminarTipoVehiculo", "GestionarVehiculos", new { id = tipo.PkTipoDeVehiculos })" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-sm">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-gray-600">No hay tipos de vehículos registrados.</p>
+                    }
                 </div>
             </div>
+        </div>
+    </div>
 
 </body>
 
