@@ -1,0 +1,9 @@
+﻿@model List<PROYECTO_FLK.Models.TiposServicio>
+
+<select id="tipoServicioSelect" class="form-select mt-1 block w-full rounded-md border-gray-300" onchange="cargarTipoInspeccion(this.value)">
+    <option value="">Seleccionar Servicio</option>
+    @foreach (var servicio in Model)
+    {
+        <option value="@servicio.PkTiposServicio">@servicio.Nombre</option>
+    }
+</select>

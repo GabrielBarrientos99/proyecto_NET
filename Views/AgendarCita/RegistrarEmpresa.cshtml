@@ -1,0 +1,29 @@
+﻿@model PROYECTO_FLK.Models.Empresa
+
+<form asp-action="RegistrarEmpresa" asp-controller="AgendarCita" method="post" class="space-y-4">
+    <div>
+        <label class="block text-gray-700 font-bold">RUC</label>
+        <input asp-for="Ruc" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+    </div>
+    <div>
+        <label class="block text-gray-700 font-bold">Nombre</label>
+        <input asp-for="Nombre" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+    </div>
+    <div>
+        <label class="block text-gray-700 font-bold">Razón Social</label>
+        <input asp-for="RazonSocial" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+    </div>
+    <div>
+        <label class="block text-gray-700 font-bold">Email</label>
+        <input asp-for="Email" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+    </div>
+    <div>
+        <label class="block text-gray-700 font-bold">Dirección</label>
+        <input asp-for="Direccion" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+    </div>
+    <div>
+        <label class="block text-gray-700 font-bold">Teléfono</label>
+        <input asp-for="Telefono" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+    </div>
+    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Registrar</button>
+</form>

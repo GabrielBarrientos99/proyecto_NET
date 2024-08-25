@@ -1,0 +1,74 @@
+﻿@model PROYECTO_FLK.Models.GestionarVehiculoViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Editar Vehículo";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Editar Vehiculo</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+<div class="container mx-auto p-8">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Editar Vehículo</h2>
+
+    <form asp-action="EditarVehiculos" method="post" class="space-y-4">
+        <input type="hidden" asp-for="Vehiculo.PkVehiculo" />
+
+        <div>
+            <label class="block text-gray-700 font-bold mb-2" for="Fabricante">Fabricante</label>
+            <input asp-for="Vehiculo.Fabricante" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa el fabricante" />
+            <span asp-validation-for="Vehiculo.Fabricante" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-bold mb-2" for="Modelo">Modelo</label>
+            <input asp-for="Vehiculo.Modelo" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa el modelo" />
+            <span asp-validation-for="Vehiculo.Modelo" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-bold mb-2" for="NumeroSerie">Número de Serie</label>
+            <input asp-for="Vehiculo.NumeroSerie" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa el número de serie" />
+            <span asp-validation-for="Vehiculo.NumeroSerie" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-bold mb-2" for="Marca">Marca</label>
+            <input asp-for="Vehiculo.Marca" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa la marca" />
+            <span asp-validation-for="Vehiculo.Marca" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-bold mb-2" for="FkTipoDeVehiculos">Tipo de Vehículo</label>
+            <select asp-for="Vehiculo.FkTipoDeVehiculos" class="w-full p-2 border border-gray-300 rounded">
+                @foreach (var tipo in Model.TipoDeVehiculos)
+                {
+                    <option value="@tipo.PkTipoDeVehiculos" selected="@((tipo.PkTipoDeVehiculos == Model.Vehiculo.FkTipoDeVehiculos))">@tipo.TipoDeVehiculo1</option>
+                }
+            </select>
+            <span asp-validation-for="Vehiculo.FkTipoDeVehiculos" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div class="flex justify-between">
+            <a href="@Url.Action("Index", "GestionarVehiculos")" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancelar</a>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Guardar Cambios</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+</body>
+
+</html>

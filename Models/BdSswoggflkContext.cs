@@ -65,7 +65,7 @@ public partial class BdSswoggflkContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=BD_SSWOGGFLK;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-JV065NN\\SQLEXPRESS;Database=BD_SSWOGGFLK;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -246,26 +246,27 @@ public partial class BdSswoggflkContext : DbContext
 
         modelBuilder.Entity<Inspeccione>(entity =>
         {
-            entity.HasKey(e => e.PkInspeccion).HasName("PK__Inspecci__9B00EA3AB2F5E86F");
+            entity.HasKey(e => e.PkInspeccion).HasName("PK__Inspecci__9B00EA3ACF3E8277");
 
-            entity.Property(e => e.PkInspeccion)
-                .ValueGeneratedNever()
-                .HasColumnName("PK_Inspeccion");
+            entity.Property(e => e.PkInspeccion).HasColumnName("PK_Inspeccion");
+            entity.Property(e => e.Descripcion).HasMaxLength(200);
+            entity.Property(e => e.FechaRegistro).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.FkEmpresas).HasColumnName("FK_Empresas");
-            entity.Property(e => e.FkServicio).HasColumnName("FK_Servicio");
+            entity.Property(e => e.FkTipoDeServicio).HasColumnName("FK_Tipo_de_Servicio");
             entity.Property(e => e.FkTipoInspecciones).HasColumnName("FK_Tipo_Inspecciones");
+            entity.Property(e => e.Ubicacion).HasMaxLength(200);
 
             entity.HasOne(d => d.FkEmpresasNavigation).WithMany(p => p.Inspecciones)
                 .HasForeignKey(d => d.FkEmpresas)
-                .HasConstraintName("FK__Inspeccio__FK_Em__17036CC0");
+                .HasConstraintName("FK_Inspecciones_Empresas");
 
-            entity.HasOne(d => d.FkServicioNavigation).WithMany(p => p.Inspecciones)
-                .HasForeignKey(d => d.FkServicio)
-                .HasConstraintName("FK__Inspeccio__FK_Se__160F4887");
+            entity.HasOne(d => d.FkTipoDeServicioNavigation).WithMany(p => p.Inspecciones)
+                .HasForeignKey(d => d.FkTipoDeServicio)
+                .HasConstraintName("FK_Inspecciones_TiposServicio");
 
             entity.HasOne(d => d.FkTipoInspeccionesNavigation).WithMany(p => p.Inspecciones)
                 .HasForeignKey(d => d.FkTipoInspecciones)
-                .HasConstraintName("FK__Inspeccio__FK_Ti__17F790F9");
+                .HasConstraintName("FK_Inspecciones_TipoInspeccion");
         });
 
         modelBuilder.Entity<InspectoresDisponible>(entity =>

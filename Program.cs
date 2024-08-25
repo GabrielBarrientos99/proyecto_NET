@@ -85,6 +85,14 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "GestionarInspeccionesAsignaturas",
         pattern: "{controller=Inspecciones}/{action=InspeccionesAsignaturas}/{id?}");
+
+    endpoints.MapControllerRoute(
+        name: "GestionarVehiculo",
+        pattern: "{controller=GestionarVehiculos}/{action=Index}/{id?}");
+
+    endpoints.MapControllerRoute(
+      name: "AgendarCita",
+      pattern: "{controller=AgendarCita}/{action=Index}/{id?}");
 });
 
 

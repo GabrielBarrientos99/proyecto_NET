@@ -1,0 +1,59 @@
+﻿@model PROYECTO_FLK.Models.GestionarVehiculoViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Editar Tipo de Vehículo";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - EditarTipoVehiculo</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-8 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Editar Tipo de Vehículo</h2>
+
+        <form asp-action="EditarTipoVehiculo" method="post" class="space-y-4">
+            <input type="hidden" asp-for="TipoDeVehiculo.PkTipoDeVehiculos" />
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-2" for="TipoDeVehiculo.TipoDeVehiculo1">Tipo de Vehículo</label>
+                <input asp-for="TipoDeVehiculo.TipoDeVehiculo1" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa el tipo de vehículo" />
+                <span asp-validation-for="TipoDeVehiculo.TipoDeVehiculo1" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-2" for="TipoDeVehiculo.CapacidadCarga">Capacidad de Carga</label>
+                <input asp-for="TipoDeVehiculo.CapacidadCarga" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa la capacidad de carga" />
+                <span asp-validation-for="TipoDeVehiculo.CapacidadCarga" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-2" for="TipoDeVehiculo.Descripcion">Descripción</label>
+                <input asp-for="TipoDeVehiculo.Descripcion" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa la descripción" />
+                <span asp-validation-for="TipoDeVehiculo.Descripcion" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="flex justify-between mt-6">
+                <a href="@Url.Action("Index", "GestionarVehiculos")" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancelar</a>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+</body>
+
+</html>

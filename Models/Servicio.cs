@@ -24,6 +24,4 @@ public partial class Servicio
     public virtual ICollection<Curso> Cursos { get; set; } = new List<Curso>();
 
     public virtual TiposServicio? FkTipoServicioNavigation { get; set; }
-
-    public virtual ICollection<Inspeccione> Inspecciones { get; set; } = new List<Inspeccione>();
 }
