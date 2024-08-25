@@ -1,7 +1,7 @@
 ﻿@model PROYECTO_FLK.Models.GestionarVehiculoViewModel
 
 @{
-    ViewData["Title"] = "Gestionar Vehículos";
+    ViewData["Title"] = "Agregar Vehículo";
 }
 
 <!DOCTYPE html>
@@ -10,103 +10,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador - Gestión de Vehículos</title>
+    <title>@ViewData["Title"]</title>
     <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100">
 
-    <!-- Sidebar -->
-    <div class="flex h-screen bg-gray-100">
-        <!-- Sidebar -->
-        <div class="w-64 px-4 py-8 bg-gray-900 text-white">
-            <div class="flex items-center mb-8">
-                <!-- Logo -->
-                @* <img src="#" alt="Logo" class="h-12 w-auto"> *@
-                <span class="ml-3 text-2xl font-bold">Administrador</span>
-            </div>
-            <nav class="mt-8">
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Menu Principal</a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Empresa</a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 bg-gray-800 text-white">Gestionar Vehículos</a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Agendar Cita</a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 hover:text-white text-gray-400">Gestionar Inspecciones y Asignaturas</a>
-                <a asp-controller="Inicio" asp-action="IniciarSesion" class="block py-2.5 px-4 mt-4 bg-red-600 rounded transition duration-200 hover:bg-red-700 text-white">Logout</a>
-            </nav>
-        </div>
+    <div class="container mx-auto p-8 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Agregar Nuevo Vehículo</h2>
 
-        <!-- Content -->
-        <div class="flex-1 p-10 space-y-10">
-            <!-- Sección de Gestión de Vehículos -->
+        <form asp-action="AgregarVehiculo" method="post" class="space-y-4">
             <div>
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Lista de Vehículos</h2>
-                <a href="@Url.Action("AgregarVehiculo", "GestionarVehiculos")" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">AGREGAR VEHÍCULO</a>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-                        <thead class="bg-gray-800 text-white">
-                            <tr>
-                                <th class="py-3 px-4 text-left">ID</th>
-                                <th class="py-3 px-4 text-left">Fabricante</th>
-                                <th class="py-3 px-4 text-left">Modelo</th>
-                                <th class="py-3 px-4 text-left">Número de Serie</th>
-                                <th class="py-3 px-4 text-left">Marca</th>
-                                <th class="py-3 px-4 text-left">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var vehiculo in Model.Vehiculos)
-                            {
-                                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                    <td class="py-3 px-4">@vehiculo.PkVehiculo</td>
-                                    <td class="py-3 px-4">@vehiculo.Fabricante</td>
-                                    <td class="py-3 px-4">@vehiculo.Modelo</td>
-                                    <td class="py-3 px-4">@vehiculo.NumeroSerie</td>
-                                    <td class="py-3 px-4">@vehiculo.Marca</td>
-                                    <td class="py-3 px-4 space-x-2">
-                                        <a href="@Url.Action("EditarVehiculos", "GestionarVehiculos", new { id = vehiculo.PkVehiculo })" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-sm">Editar</a>
-                                        <a href="@Url.Action("EliminarVehiculos", "GestionarVehiculos", new { id = vehiculo.PkVehiculo })" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-sm">Eliminar</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                <label class="block text-gray-700 font-bold mb-2" for="Fabricante">Fabricante</label>
+                <input asp-for="Vehiculo.Fabricante" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa el fabricante" />
+                <span asp-validation-for="Vehiculo.Fabricante" class="text-red-500 text-sm"></span>
             </div>
-            <!-- Sección de Gestión de Tipos de Vehículos -->
+
             <div>
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Lista de Tipos de Vehículos</h2>
-                <a href="#" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">AGREGAR TIPO DE VEHÍCULO</a>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
-                        <thead class="bg-gray-800 text-white">
-                            <tr>
-                                <th class="py-3 px-4 text-left">ID</th>
-                                <th class="py-3 px-4 text-left">Tipo de Vehículo</th>
-                                <th class="py-3 px-4 text-left">Capacidad de Carga</th>
-                                <th class="py-3 px-4 text-left">Descripción</th>
-                                <th class="py-3 px-4 text-left">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var tipo in Model.TipoDeVehiculos)
-                            {
-                                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                    <td class="py-3 px-4">@tipo.PkTipoDeVehiculos</td>
-                                    <td class="py-3 px-4">@tipo.TipoDeVehiculo1</td>
-                                    <td class="py-3 px-4">@tipo.CapacidadCarga</td>
-                                    <td class="py-3 px-4">@tipo.Descripcion</td>
-                                    <td class="py-3 px-4 space-x-2">
-                                        <a href="@Url.Action("Editar", "GestionarVehiculos", new { id = tipo.PkTipoDeVehiculos })" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-sm">Editar</a>
-                                        <a href="@Url.Action("Eliminar", "GestionarVehiculos", new { id = tipo.PkTipoDeVehiculos })" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-sm">Eliminar</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                <label class="block text-gray-700 font-bold mb-2" for="Modelo">Modelo</label>
+                <input asp-for="Vehiculo.Modelo" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa el modelo" />
+                <span asp-validation-for="Vehiculo.Modelo" class="text-red-500 text-sm"></span>
             </div>
-        </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-2" for="NumeroSerie">Número de Serie</label>
+                <input asp-for="Vehiculo.NumeroSerie" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa el número de serie" />
+                <span asp-validation-for="Vehiculo.NumeroSerie" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-2" for="Marca">Marca</label>
+                <input asp-for="Vehiculo.Marca" class="w-full p-2 border border-gray-300 rounded" placeholder="Ingresa la marca" />
+                <span asp-validation-for="Vehiculo.Marca" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-bold mb-2" for="FkTipoDeVehiculos">Tipo de Vehículo</label>
+                <select asp-for="Vehiculo.FkTipoDeVehiculos" asp-items="@(new SelectList(Model.TipoDeVehiculos, "PkTipoDeVehiculos", "TipoDeVehiculo1"))" class="w-full p-2 border border-gray-300 rounded">
+                    <option value="">Selecciona el tipo de vehículo</option>
+                </select>
+                <span asp-validation-for="Vehiculo.FkTipoDeVehiculos" class="text-red-500 text-sm"></span>
+            </div>
+
+            <div class="flex justify-between mt-6">
+                <a href="@Url.Action("Index", "GestionarVehiculos")" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancelar</a>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Agregar Vehículo</button>
+            </div>
+        </form>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
 
 </body>
 

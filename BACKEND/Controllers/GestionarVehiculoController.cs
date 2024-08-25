@@ -32,10 +32,14 @@ namespace PROYECTO_FLK.Controllers
         // Acción para mostrar el formulario de creación de vehículo
         public IActionResult AgregarVehiculo()
         {
-            ViewBag.TiposDeVehiculos = _context.TipoDeVehiculos.ToList();
-            return View();
-        }
+            var viewModel = new GestionarVehiculoViewModel
+            {
+                TipoDeVehiculos = _context.TipoDeVehiculos.ToList() // Llenamos la lista de tipos de vehículos
+            };
 
+            ViewData["Title"] = "Agregar Vehículo";
+            return View(viewModel);
+        }
         // Acción para procesar la creación de vehículo
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -168,7 +172,14 @@ namespace PROYECTO_FLK.Controllers
             {
                 return NotFound();
             }
-            return View(tipoDeVehiculo); // Crea una vista llamada "EditarTipoVehiculo.cshtml"
+
+            var viewModel = new GestionarVehiculoViewModel
+            {
+                TipoDeVehiculo = tipoDeVehiculo,
+                TipoDeVehiculos = await _context.TipoDeVehiculos.ToListAsync() // Si necesitas cargar más tipos de vehículos
+            };
+
+            return View(viewModel); // Asegúrate de que la vista espera un modelo de tipo GestionarVehiculoViewModel
         }
 
         // Acción para procesar la edición de un tipo de vehículo
