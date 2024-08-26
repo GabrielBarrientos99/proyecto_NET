@@ -229,11 +229,9 @@ public partial class BdSswoggflkContext : DbContext
 
         modelBuilder.Entity<Empresa>(entity =>
         {
-            entity.HasKey(e => e.PkEmpresas).HasName("PK__Empresas__1A32D73AE287B7B1");
+            entity.HasKey(e => e.PkEmpresas).HasName("PK__Empresas__1A32D73A9487A9E9");
 
-            entity.Property(e => e.PkEmpresas)
-                .ValueGeneratedNever()
-                .HasColumnName("PK_Empresas");
+            entity.Property(e => e.PkEmpresas).HasColumnName("PK_Empresas");
             entity.Property(e => e.Direccion).HasMaxLength(255);
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Nombre).HasMaxLength(100);
@@ -246,7 +244,7 @@ public partial class BdSswoggflkContext : DbContext
 
         modelBuilder.Entity<Inspeccione>(entity =>
         {
-            entity.HasKey(e => e.PkInspeccion).HasName("PK__Inspecci__9B00EA3ACF3E8277");
+            entity.HasKey(e => e.PkInspeccion).HasName("PK__Inspecci__9B00EA3AC9EAC7C6");
 
             entity.Property(e => e.PkInspeccion).HasColumnName("PK_Inspeccion");
             entity.Property(e => e.Descripcion).HasMaxLength(200);
@@ -262,11 +260,11 @@ public partial class BdSswoggflkContext : DbContext
 
             entity.HasOne(d => d.FkTipoDeServicioNavigation).WithMany(p => p.Inspecciones)
                 .HasForeignKey(d => d.FkTipoDeServicio)
-                .HasConstraintName("FK_Inspecciones_TiposServicio");
+                .HasConstraintName("FK_Inspecciones_TipoServicio");
 
             entity.HasOne(d => d.FkTipoInspeccionesNavigation).WithMany(p => p.Inspecciones)
                 .HasForeignKey(d => d.FkTipoInspecciones)
-                .HasConstraintName("FK_Inspecciones_TipoInspeccion");
+                .HasConstraintName("FK_Inspecciones_TipoInspecciones");
         });
 
         modelBuilder.Entity<InspectoresDisponible>(entity =>
@@ -473,23 +471,16 @@ public partial class BdSswoggflkContext : DbContext
 
         modelBuilder.Entity<Vehiculo>(entity =>
         {
-            entity.HasKey(e => e.PkVehiculo).HasName("PK__Vehiculo__0032D334AA00781C");
+            entity.HasKey(e => e.PkVehiculo).HasName("PK__Vehiculo__0032D334D08AE5EF");
 
             entity.Property(e => e.PkVehiculo).HasColumnName("PK_Vehiculo");
-            entity.Property(e => e.Fabricante)
-                .HasMaxLength(200)
-                .IsUnicode(false);
+            entity.Property(e => e.Fabricante).HasMaxLength(200);
             entity.Property(e => e.FkEmpresas).HasColumnName("FK_Empresas");
             entity.Property(e => e.FkTipoDeVehiculos).HasColumnName("FK_tipo_de_vehiculos");
-            entity.Property(e => e.Marca)
-                .HasMaxLength(200)
-                .IsUnicode(false);
-            entity.Property(e => e.Modelo)
-                .HasMaxLength(200)
-                .IsUnicode(false);
+            entity.Property(e => e.Marca).HasMaxLength(200);
+            entity.Property(e => e.Modelo).HasMaxLength(200);
             entity.Property(e => e.NumeroSerie)
                 .HasMaxLength(200)
-                .IsUnicode(false)
                 .HasColumnName("Numero_Serie");
 
             entity.HasOne(d => d.FkEmpresasNavigation).WithMany(p => p.Vehiculos)

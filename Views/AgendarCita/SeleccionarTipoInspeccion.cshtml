@@ -1,11 +1,15 @@
-﻿@model IEnumerable<dynamic>
+﻿@model PROYECTO_FLK.Models.AgendarCitaViewModel
 
-<select id="tipoInspeccionSelect" class="form-control">
+<select id="tipoInspeccionSelect" asp-for="SelectedTipoInspeccionId" class="form-control">
     <option value="">Seleccionar Tipo de Inspección</option>
-    @foreach (var tipo in Model)
+    @foreach (var inspeccion in Model.TipoInspeccions)
     {
-        <option value="@tipo.PkTipoInspeccion">@tipo.Titulo</option>
+        <option value="@inspeccion.PkTipoInspeccion">@inspeccion.Titulo</option>
     }
 </select>
 
-<button type="button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4" data-bs-dismiss="modal">Seleccionar</button>
+<div class="border-t p-4 flex justify-end space-x-4">
+    <button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onclick="cerrarModal('seleccionarTipoInspeccion')">Cancelar</button>
+    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onclick="mostrarModalEmpresa()">Seleccionar</button>
+</div>
+

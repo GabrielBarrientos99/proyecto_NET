@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PROYECTO_FLK.Models;
+using System.Linq;
 using System.Threading.Tasks;
+
+
 
 namespace PROYECTO_FLK.Controllers
 {
@@ -14,20 +17,25 @@ namespace PROYECTO_FLK.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            var inspecciones = _context.Inspecciones
+            var inspecciones = await _context.Inspecciones
                 .Include(i => i.FkEmpresasNavigation)
                 .Include(i => i.FkTipoDeServicioNavigation)
                 .Include(i => i.FkTipoInspeccionesNavigation)
-                .ToList();
+                .ToListAsync();
 
-            var tiposServicio = _context.TiposServicios.ToList(); // Aquí cargas los tipos de servicio
+            var tiposServicio = await _context.TiposServicios.ToListAsync();
+            var tiposDeInspeccion = await _context.TipoInspeccions.ToListAsync();
+            var empresas = await _context.Empresas.ToListAsync();
 
             var viewModel = new AgendarCitaViewModel
             {
                 Inspecciones = inspecciones,
-                TiposServicios = tiposServicio
+                TiposServicios = tiposServicio,
+                TipoInspeccions = tiposDeInspeccion,
+                Empresas = empresas
             };
 
             return View(viewModel);
@@ -40,49 +48,61 @@ namespace PROYECTO_FLK.Controllers
             return View();
         }
 
-
-        // Método para cargar el modal de selección de servicio
         public IActionResult SeleccionarServicio()
         {
-            var servicios = _context.TiposServicios.ToList();
-            return PartialView("SeleccionarServicio", servicios);
+            var viewModel = new AgendarCitaViewModel
+            {
+                TiposServicios = _context.TiposServicios.ToList()
+            };
+            return PartialView("SeleccionarServicio", viewModel);
         }
-
 
         [HttpPost]
-        public IActionResult SeleccionarTipoInspeccion(int servicioId)
+        public IActionResult SeleccionarTipoInspeccion(int selectedTipoServicioId)
         {
-            var tiposInspeccion = _context.TipoInspeccions
-                .Where(t => t.FkTipoCertificadoDePersonal == servicioId)
-                .Select(t => new { t.PkTipoInspeccion, t.Titulo }) // Solo selecciona el campo "Titulo"
-                .ToList();
+            var viewModel = new AgendarCitaViewModel
+            {
+                SelectedTipoServicioId = selectedTipoServicioId,
+                TipoInspeccions = _context.TipoInspeccions.Where(t => t.FkTipoCertificadoDePersonal == selectedTipoServicioId).ToList()
+            };
 
-            return PartialView("SeleccionarTipoInspeccion", tiposInspeccion);
+            return PartialView("SeleccionarTipoInspeccion", viewModel);
         }
-
 
         [HttpGet]
-        public IActionResult RegistrarEmpresa()
+        public IActionResult RegistrarEmpresa(int selectedTipoServicioId, int selectedTipoInspeccionId)
         {
-            return View();
+            var viewModel = new AgendarCitaViewModel
+            {
+                SelectedTipoServicioId = selectedTipoServicioId,
+                SelectedTipoInspeccionId = selectedTipoInspeccionId,
+                NuevaEmpresa = new Empresa()
+            };
+
+            return PartialView("RegistrarEmpresa", viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegistrarEmpresa(Empresa empresa)
+        public IActionResult RegistrarEmpresa(AgendarCitaViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var empresa = model.NuevaEmpresa;
                 _context.Empresas.Add(empresa);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(AgendarCita));
-            }
-            return View(empresa);
-        }
+                _context.SaveChanges();
 
-        [HttpGet]
-        public IActionResult CompletarInspeccion()
-        {
-            return PartialView("CompletarInspeccion");
+                // Rediriges al modal de completar inspección manteniendo los valores seleccionados
+                model.InspeccionCompleta = new Inspeccione
+                {
+                    FkEmpresas = empresa.PkEmpresas,
+                    FkTipoDeServicio = model.SelectedTipoServicioId,
+                    FkTipoInspecciones = model.SelectedTipoInspeccionId
+                };
+
+                return PartialView("CompletarInspeccion", model); // Devuelve el modal como vista parcial
+            }
+
+            return PartialView("RegistrarEmpresa", model); // Si hay un error, regresa la misma vista
         }
 
         [HttpPost]
@@ -90,6 +110,7 @@ namespace PROYECTO_FLK.Controllers
         {
             if (ModelState.IsValid)
             {
+                inspeccion.FechaRegistro = DateOnly.FromDateTime(DateTime.Now);
                 _context.Inspecciones.Add(inspeccion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
