@@ -62,9 +62,11 @@
                             @foreach (var inspeccion in Model.Inspecciones)
                             {
                                 <tr>
-                                    <td class="py-2 px-4 border-b">@inspeccion.FkTipoInspeccionesNavigation.Titulo</td>
+                                    <td class="py-2 px-4 border-b">@inspeccion.FkTipoInspeccionesNavigation?.Titulo</td>
+                                    <td class="py-2 px-4 border-b">@inspeccion.FkTipoDeServicioNavigation?.Nombre</td>
                                     <td class="py-2 px-4 border-b">@inspeccion.Descripcion</td>
-                                    <td class="py-2 px-4 border-b">@inspeccion.FkEmpresas.Value</td>
+                                    <td class="py-2 px-4 border-b">@inspeccion.Ubicacion</td>
+                                    <td class="py-2 px-4 border-b">@inspeccion.FkEmpresasNavigation</td>
                                     <td class="py-2 px-4 border-b">
                                         <a asp-action="Edit" asp-route-id="@inspeccion.PkInspeccion" class="text-blue-500">Editar</a> |
                                         <a asp-action="Delete" asp-route-id="@inspeccion.PkInspeccion" class="text-red-500">Eliminar</a>

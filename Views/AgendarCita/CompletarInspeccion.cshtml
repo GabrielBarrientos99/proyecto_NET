@@ -2,22 +2,39 @@
 
 <form asp-action="CompletarInspeccion" asp-controller="AgendarCita" method="post" class="space-y-4">
     <input type="hidden" asp-for="InspeccionCompleta.FkEmpresas" />
-    <input type="hidden" asp-for="InspeccionCompleta.FkTipoDeServicio" />
-    <input type="hidden" asp-for="InspeccionCompleta.FkTipoInspecciones" />
+    <input type="hidden" asp-for="SelectedTipoServicioId" />
+    <input type="hidden" asp-for="SelectedTipoInspeccionId" />
+  
 
-    <!-- Campos de Descripción y Ubicación -->
-    <div>
-        <label class="block text-gray-700 font-bold">Descripción</label>
-        <textarea asp-for="InspeccionCompleta.Descripcion" class="form-textarea mt-1 block w-full rounded-md border-gray-300"></textarea>
-    </div>
-    <div>
-        <label class="block text-gray-700 font-bold">Ubicación</label>
-        <input asp-for="InspeccionCompleta.Ubicacion" class="form-input mt-1 block w-full rounded-md border-gray-300" />
-    </div>
+    <!-- Modal Completar Inspección -->
+    <div id="completarInspeccionModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+        <div class="bg-blue-100 rounded-lg shadow-lg w-96">
+       
+            <!-- Header del Modal -->
+            <div class="border-b p-4 flex justify-between items-center">
+                <h5 class="text-lg font-bold text-gray-800">Completar Información</h5>
+            </div>
 
-    <!-- Botones de Guardar y Cancelar -->
-    <div class="border-t p-4 flex justify-end space-x-4">
-        <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onclick="cerrarModal('completarInspeccion')">Cancelar</button>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Guardar</button>
+            <!-- Contenido del Modal -->
+            <div class="p-4">
+                <!-- Campo Descripción -->
+                <div class="mb-4">
+                    <label asp-for="InspeccionCompleta.Descripcion" class="block text-gray-700 font-bold mb-2">Descripción</label>
+                    <textarea asp-for="InspeccionCompleta.Descripcion" class="form-textarea mt-1 block w-full rounded-md border-gray-300" rows="3"></textarea>
+                </div>
+
+                <!-- Campo Ubicación -->
+                <div class="mb-4">
+                    <label asp-for="InspeccionCompleta.Ubicacion" class="block text-gray-700 font-bold mb-2">Ubicación</label>
+                    <input asp-for="InspeccionCompleta.Ubicacion" class="form-input mt-1 block w-full rounded-md border-gray-300" />
+                </div>
+
+                <!-- Botones de Guardar y Cancelar -->
+                <div class="border-t p-4 flex justify-end space-x-4">
+                    <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onclick="cerrarModal('completarInspeccionModal')">Cancelar</button>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Guardar</button>
+                </div>
+            </div>
+        </div>
     </div>
 </form>

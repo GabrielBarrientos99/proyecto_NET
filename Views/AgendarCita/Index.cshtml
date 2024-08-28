@@ -41,7 +41,7 @@
                             <th class="py-3 px-4 text-left">Empresa</th>
                             <th class="py-3 px-4 text-left">Tipo de Servicio</th>
                             <th class="py-3 px-4 text-left">Tipo de Inspección</th>
-                            <th class="py-3 px-4 text-left">Fecha de Inspección</th>
+                            <th class="py-3 px-4 text-left">Fecha de Inspección</th>  
                             <th class="py-3 px-4 text-left">Fecha de Registro</th>
                             <th class="py-3 px-4 text-left">Descripción</th>
                             <th class="py-3 px-4 text-left">Ubicación</th>
@@ -52,9 +52,9 @@
                         {
                             <tr class="border-b border-gray-200 hover:bg-gray-100">
                                 <td class="py-3 px-4">@item.FkEmpresasNavigation?.Nombre</td>
-                                <td class="py-3 px-4">@item.FkTipoDeServicioNavigation?.Nombre</td>
+                               <td class="py-3 px-4">@item.FkTipoDeServicioNavigation?.Nombre</td>
                                 <td class="py-3 px-4">@item.FkTipoInspeccionesNavigation?.Titulo</td>
-                                <td class="py-3 px-4">@item.FechaInspeccion?.ToString("yyyy-MM-dd")</td>
+                                <td class="py-3 px-4">@item.FechaInspeccion?.ToString("yyyy-MM-dd")</td>  
                                 <td class="py-3 px-4">@item.FechaRegistro?.ToString("yyyy-MM-dd")</td>
                                 <td class="py-3 px-4">@item.Descripcion</td>
                                 <td class="py-3 px-4">@item.Ubicacion</td>
@@ -102,23 +102,24 @@
             <div class="p-4">
                 @Html.Partial("RegistrarEmpresa", Model)
             </div>
+           
         </div>
     </div>
 
     <!-- Modal 4: Completar Inspección -->
-    <div id="completarInspeccion" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden justify-center items-center">
+    <div id="completarInspeccionModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden justify-center items-center">
         <div class="bg-white rounded-lg shadow-lg w-96">
             <div class="border-b p-4">
                 <h5 class="text-lg font-bold">Completar Información</h5>
-                <button class="text-gray-500 hover:text-gray-700 float-right" onclick="cerrarModal('completarInspeccion')">&times;</button>
+                <button class="text-gray-500 hover:text-gray-700 float-right" onclick="cerrarModal('completarInspeccionModal')">&times;</button>
             </div>
-            <div class="p-4">
+            <div class="p-4" id="completarInspeccionContent">
                 @Html.Partial("CompletarInspeccion", Model)
             </div>
         </div>
     </div>
-</body>
 
+</body>
 <script>
 
     function abrirModal(modalId) {
@@ -130,12 +131,12 @@
         document.getElementById(modalId).classList.remove('flex');
         document.getElementById(modalId).classList.add('hidden');
     }
-
-
     function cargarTipoInspeccion() {
         const selectedServiceId = document.getElementById("tipoServicioSelect").value;
 
         if (selectedServiceId) {
+            // Guardar el valor seleccionado en el input hidden
+            document.querySelector('input[name="SelectedTipoServicioId"]').value = selectedServiceId;
             cerrarModal('seleccionarServicio');
             abrirModal('seleccionarTipoInspeccion');
         } else {
@@ -144,25 +145,25 @@
     }
 
     function mostrarModalEmpresa() {
-        cerrarModal('seleccionarTipoInspeccion');
-        abrirModal('registrarEmpresa');
+        const selectedInspectionId = document.getElementById("tipoInspeccionSelect").value;
+
+        if (selectedInspectionId) {
+            // Guardar el valor seleccionado en el input hidden
+            document.querySelector('input[name="SelectedTipoInspeccionId"]').value = selectedInspectionId;
+            cerrarModal('seleccionarTipoInspeccion');
+            abrirModal('registrarEmpresa');
+        } else {
+            alert("Selecciona un tipo de inspección primero.");
+        }
     }
 
     function mostrarModalCompletar() {
-        $.ajax({
-            url: '/AgendarCita/RegistrarEmpresa',
-            type: 'POST',
-            data: $('#registrarEmpresaModal form').serialize(),
-            success: function (response) {
-                if (response.success) {
-                    $('#completarInspeccionModal').html(response.view);
-                    abrirModal('completarInspeccionModal');
-                } else {
-                    alert('Hubo un error al registrar la empresa.');
-                }
-            }
-        });
+        cerrarModal('registrarEmpresa');
+        abrirModal('completarInspeccion');
+       
     }
+
+  
 
 </script>
 

@@ -1,6 +1,6 @@
 ﻿@model PROYECTO_FLK.Models.AgendarCitaViewModel
 
-<form id="formRegistrarEmpresa" asp-action="RegistrarEmpresa" asp-controller="AgendarCita" method="post" class="space-y-4">
+<form asp-action="RegistrarEmpresa" asp-controller="AgendarCita" method="post" class="space-y-4">
     <input type="hidden" asp-for="SelectedTipoServicioId" />
     <input type="hidden" asp-for="SelectedTipoInspeccionId" />
 
@@ -34,8 +34,10 @@
     <!-- Botones de Guardar y Cancelar -->
     <div class="border-t p-4 flex justify-end space-x-4">
         <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onclick="cerrarModal('registrarEmpresa')">Cancelar</button>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Registrar</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onclick="mostrarModalCompletar()">Registrar</button>
+
     </div>
+
 
 </form>
 

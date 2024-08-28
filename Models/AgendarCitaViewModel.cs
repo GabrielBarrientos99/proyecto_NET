@@ -14,7 +14,8 @@ namespace PROYECTO_FLK.Models
         public Inspeccione InspeccionCompleta { get; set; } = new Inspeccione(); // Modelo para completar la inspección
 
         // Propiedades para almacenar los datos seleccionados
-        public int? SelectedTipoServicioId { get; set; }
-        public int? SelectedTipoInspeccionId { get; set; }
+        public int SelectedTipoServicioId { get; set; }
+        public int SelectedTipoInspeccionId { get; set; }
+        public int SelectedEmpresaId { get; set; }
     }
 }
